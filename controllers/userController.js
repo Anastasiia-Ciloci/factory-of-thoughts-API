@@ -2,7 +2,7 @@ const { User } = require("../models");
 
 module.exports = {
   // Get all users
-  getUsers(req, res) {
+  getUser(req, res) {
     User.find()
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
@@ -20,8 +20,9 @@ module.exports = {
   },
   // create a new user
   createUser(req, res) {
+    console.log(req.body);
     User.create(req.body)
-      .then((user) => res.json(user))
+      .then((newUser) => res.json(newUser))
       .catch((err) => res.status(500).json(err));
   },
   // Delete a user and associated apps
