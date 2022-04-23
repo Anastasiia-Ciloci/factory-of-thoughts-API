@@ -23,9 +23,12 @@ module.exports = {
     console.log(req.body);
     User.create(req.body)
       .then((newUser) => res.json(newUser))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
-  // Delete a user and associated apps
+  // Delete a user
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>

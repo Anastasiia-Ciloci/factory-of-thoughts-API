@@ -1,25 +1,35 @@
 const { Schema, Types, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
-const reactionSchema = new Schema({
-  reactionId: {
-    type: Types.ObjectId,
-    default: new Types.ObjectId(),
+
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Types.ObjectId,
+      default: new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: new Date(),
+      get: (timestamp) => dateFormat(timestamp),
+    },
   },
-  reactionBody: {
-    type: String,
-    required: true,
-    minLength: 1,
-    maxLength: 280,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-});
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
 const thoughtSchema = new Schema(
   {
     thoughtText: {
